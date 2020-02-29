@@ -1,0 +1,37 @@
+dependencies {
+    //springboot支持
+    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    //springboot aop支持
+    compile("org.springframework.boot:spring-boot-starter-aop:${springBootVersion}")
+    //springboot web支持
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    //springboot mongodb支持
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compile("org.projectlombok:lombok:${lombokVersion}")
+    //apache commons beanUtils
+    compile("commons-beanutils:commons-beanutils:${commonsBeanutilsVersion}")
+
+    //apache commons lang3
+    compile("org.apache.commons:commons-lang3:${commonsLangVersion}")
+
+    //apache commons codec
+    compile("commons-codec:commons-codec:${commonsCodecVersion}")
+
+    //apache commons io
+    compile("commons-io:commons-io:${commonsIoVersion}")
+
+    //json
+    compile ("com.alibaba:fastjson:${fastjsonVersion}")
+
+    //swagger集成
+    compile ("io.springfox:springfox-swagger2:${swaggerVersion}") {
+        exclude group: 'io.swagger', module: 'swagger-annotations'
+        exclude group: 'io.swagger', module: 'swagger-models'
+    }
+    compile ("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+    compile ("io.swagger:swagger-annotations:${swaggerAnnotationsVersion}")
+    compile ("io.swagger:swagger-models:${swaggerModelsVersion}")
+    //ics
+//        compile ("com.incarcloud.ics:ics-map-tracking:5.3-SNAPSHOT")
+}
