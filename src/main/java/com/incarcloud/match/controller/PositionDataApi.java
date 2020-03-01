@@ -20,7 +20,7 @@ import java.util.List;
  * @author bzheng, created on 2020-03-01T15:21.
  * @version 0.2.0-SNAPSHOT
  */
-@Api(tags = "位置数据查询接口 Client Restful API ", protocols = "application/json")
+@Api(tags = "位置数据查询接口", protocols = "application/json")
 public interface PositionDataApi {
     /**
      * 统计数据总行数
