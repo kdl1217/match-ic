@@ -2,6 +2,7 @@ package com.incarcloud.match.controller.impl;
 
 import com.incarcloud.match.controller.PositionDataApi;
 import com.incarcloud.match.data.ResponseData;
+import com.incarcloud.match.entity.DeviceInfo;
 import com.incarcloud.match.entity.Point;
 import com.incarcloud.match.entity.PositionData;
 import com.incarcloud.match.mongoDB.page.PageResult;
@@ -89,6 +90,18 @@ public class PositionDataController implements PositionDataApi {
                                                        @RequestParam(value = "pageSize") Integer pageSize,
                                                        @ApiParam(value = "最后一条记录的id", required = false)
                                                        @RequestParam(value = "lastId") String lastId) {
+
         return ResponseData.ok(positionDataService.page(deviceCode, startTime, endTime, pageNum, pageSize, lastId)).extraMsg("请求成功");
+    }
+
+
+
+    @GetMapping("/totalMileage")
+    public ResponseData<DeviceInfo> totalMileage(@ApiParam(value = "设备号", required = true)
+                                                 @RequestParam(value = "deviceCode") String deviceCode,
+                                                 @ApiParam(value = "指定日期", required = true)
+                                                 @RequestParam(value = "specified") Date specified) {
+
+        return ResponseData.ok(positionDataService.totalMileage(deviceCode, specified)).extraMsg("请求成功");
     }
 }

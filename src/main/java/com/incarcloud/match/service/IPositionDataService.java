@@ -1,5 +1,6 @@
 package com.incarcloud.match.service;
 
+import com.incarcloud.match.entity.DeviceInfo;
 import com.incarcloud.match.entity.Point;
 import com.incarcloud.match.entity.PositionData;
 import com.incarcloud.match.mongoDB.page.PageResult;
@@ -19,5 +20,7 @@ public interface IPositionDataService {
     List<Point> query(String deviceCode, Date startTime, Date endTime);
 
     PageResult<PositionData> page(String deviceCode, Date startTime, Date endTime, Integer pageNum, Integer pageSize, String lastId);
+
+    DeviceInfo totalMileage(String deviceCode, Date specified);
 }
 

@@ -1,23 +1,24 @@
 package com.incarcloud.match.service.impl;
 
+import com.incarcloud.match.entity.DeviceInfo;
 import com.incarcloud.match.entity.Point;
 import com.incarcloud.match.entity.PositionData;
 import com.incarcloud.match.mongoDB.page.MongoPageHelper;
 import com.incarcloud.match.mongoDB.page.PageResult;
 import com.incarcloud.match.service.IPositionDataService;
 import com.incarcloud.match.utils.TrajectoryCompressionUtil;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -84,8 +85,37 @@ public class PositionDataServiceImpl implements IPositionDataService {
 
     @Override
     public PageResult<PositionData> page(String deviceCode, Date startTime, Date endTime, Integer pageNum, Integer pageSize, String lastId) {
-        Query query=new Query(Criteria.where("deviceId").is(deviceCode)).addCriteria(Criteria.where("collectTime").lte(endTime).gte(startTime));
+        Query query = new Query(Criteria.where("deviceId").is(deviceCode)).addCriteria(Criteria.where("collectTime").lte(endTime).gte(startTime));
 
         return mongoPageHelper.pageQuery(query, PositionData.class, collectionName, Function.identity(), pageSize, pageNum, lastId);
+    }
+
+    @Override
+    public DeviceInfo totalMileage(String deviceCode, Date specified) {
+
+        Aggregation agg = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where("deviceId").is(deviceCode).and("collectTime").lte(specified)),
+                Aggregation.group("tripId").max("distance").as("maxDistance"),
+                Aggregation.group("tripId").sum("maxDistance").as("totalDistance")
+        );
+
+        AggregationResults<PositionData> results = mongoTemplate.aggregate(agg, collectionName, PositionData.class);
+
+        Document document = results.getRawResults();
+        Object object = document.get("results");
+
+        double mileage = 0d;
+        if (null != object) {
+            try {
+                if (object instanceof ArrayList<?>) {
+                    Document result = (Document) ((ArrayList) object).get(0);
+                    mileage = result.getDouble("totalDistance");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        return new DeviceInfo(deviceCode, mileage);
     }
 }

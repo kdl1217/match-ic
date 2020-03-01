@@ -1,6 +1,7 @@
 package com.incarcloud.match.controller;
 
 import com.incarcloud.match.data.ResponseData;
+import com.incarcloud.match.entity.DeviceInfo;
 import com.incarcloud.match.entity.Point;
 import com.incarcloud.match.entity.PositionData;
 import com.incarcloud.match.mongoDB.page.PageResult;
@@ -38,11 +39,11 @@ public interface PositionDataApi {
     @ApiOperation(value = "查询指定车辆指定日期的行驶总里程", notes = "查询指定车辆指定日期的行驶总里程")
     @ApiResponse(code = 200, message = "查询指定车辆指定日期的行驶总里程")
     ResponseData<Double> getTotalMileage(@ApiParam(value = "设备号", required = true)
-                                  @RequestParam(value = "deviceCode") String deviceCode,
-                                  @ApiParam(value = "采集开始时间", required = true)
-                                  @RequestParam(value = "startTime") Date startTime,
-                                  @ApiParam(value = "采集结束时间", required = true)
-                                  @RequestParam(value = "endTime") Date endTime);
+                                         @RequestParam(value = "deviceCode") String deviceCode,
+                                         @ApiParam(value = "采集开始时间", required = true)
+                                         @RequestParam(value = "startTime") Date startTime,
+                                         @ApiParam(value = "采集结束时间", required = true)
+                                         @RequestParam(value = "endTime") Date endTime);
 
 
     /**
@@ -53,11 +54,11 @@ public interface PositionDataApi {
     @ApiOperation(value = "查询指定车辆指定时间段(不短于72小时)的轨迹", notes = "查询指定车辆指定时间段(不短于72小时)的轨迹")
     @ApiResponse(code = 200, message = "查询指定车辆指定时间段(不短于72小时)的轨迹")
     ResponseData<List<Point>> query(@ApiParam(value = "设备号", required = true)
-                             @RequestParam(value = "deviceCode") String deviceCode,
-                             @ApiParam(value = "采集开始时间", required = true)
-                             @RequestParam(value = "startTime") Date startTime,
-                             @ApiParam(value = "采集结束时间", required = true)
-                             @RequestParam(value = "endTime") Date endTime);
+                                    @RequestParam(value = "deviceCode") String deviceCode,
+                                    @ApiParam(value = "采集开始时间", required = true)
+                                    @RequestParam(value = "startTime") Date startTime,
+                                    @ApiParam(value = "采集结束时间", required = true)
+                                    @RequestParam(value = "endTime") Date endTime);
 
     /**
      * 分页查询
@@ -67,15 +68,24 @@ public interface PositionDataApi {
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @ApiResponse(code = 200, message = "分页查询")
     ResponseData<PageResult<PositionData>> page(@ApiParam(value = "设备号", required = true)
-                                                       @RequestParam(value = "deviceCode") String deviceCode,
-                                                       @ApiParam(value = "采集开始时间", required = true)
-                                                       @RequestParam(value = "startTime") Date startTime,
-                                                       @ApiParam(value = "采集结束时间", required = true)
-                                                       @RequestParam(value = "endTime") Date endTime,
-                                                       @ApiParam(value = "分页参数(页数)", required = true, example = "1")
-                                                       @RequestParam(value = "pageNum") Integer pageNum,
-                                                       @ApiParam(value = "分页参数(页大小)", required = true, example = "20")
-                                                       @RequestParam(value = "pageSize") Integer pageSize,
-                                                       @ApiParam(value = "最后一条记录的id", required = false)
-                                                       @RequestParam(value = "lastId") String lastId);
+                                                @RequestParam(value = "deviceCode") String deviceCode,
+                                                @ApiParam(value = "采集开始时间", required = true)
+                                                @RequestParam(value = "startTime") Date startTime,
+                                                @ApiParam(value = "采集结束时间", required = true)
+                                                @RequestParam(value = "endTime") Date endTime,
+                                                @ApiParam(value = "分页参数(页数)", required = true, example = "1")
+                                                @RequestParam(value = "pageNum") Integer pageNum,
+                                                @ApiParam(value = "分页参数(页大小)", required = true, example = "20")
+                                                @RequestParam(value = "pageSize") Integer pageSize,
+                                                @ApiParam(value = "最后一条记录的id", required = false)
+                                                @RequestParam(value = "lastId") String lastId);
+
+
+    @ApiOperation(value = "查询指定车辆指定日期的行驶总里程", notes = "查询指定车辆指定日期的行驶总里程")
+    @ApiResponse(code = 200, message = "查询指定车辆指定日期的行驶总里程")
+    ResponseData<DeviceInfo> totalMileage(@ApiParam(value = "设备号", required = true)
+                                          @RequestParam(value = "deviceCode") String deviceCode,
+                                          @ApiParam(value = "指定日期", required = true)
+                                          @RequestParam(value = "specified") Date specified);
+
 }
