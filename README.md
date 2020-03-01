@@ -10,4 +10,15 @@
 # su - root
 sh> cd ~/datax/bin
 sh> python ./datax.py ~/datax-job/txt2mongo.json
+# 1200w result
+2020-03-01 20:27:24.351 [job-0] INFO  JobContainer - PerfTrace not enable!
+2020-03-01 20:27:24.351 [job-0] INFO  StandAloneJobContainerCommunicator - Total 12000000 records, 766222833 bytes | Speed 4.87MB/s, 80000 records/s | Error 0 records, 0 bytes |  All Task WaitWriterTime 102.529s |  All Task WaitReaderTime 17.652s | Percentage 100.00%
+2020-03-01 20:27:24.352 [job-0] INFO  JobContainer - 
+任务启动时刻                    : 2020-03-01 20:24:54
+任务结束时刻                    : 2020-03-01 20:27:24
+任务总计耗时                    :                150s
+任务平均流量                    :            4.87MB/s
+记录写入速度                    :          80000rec/s
+读出记录总数                    :            12000000
+读写失败总数                    :                   0
 ```
