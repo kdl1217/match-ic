@@ -85,7 +85,17 @@ public class PositionDataServiceImpl implements IPositionDataService {
 
     @Override
     public PageResult<PositionData> page(String deviceCode, Date startTime, Date endTime, Integer pageNum, Integer pageSize, String lastId) {
-        Query query = new Query(Criteria.where("deviceId").is(deviceCode)).addCriteria(Criteria.where("collectTime").lte(endTime).gte(startTime));
+        Query query=new Query();
+        if (!StringUtils.isEmpty(deviceCode)) {
+            query.addCriteria(Criteria.where("deviceId").is(deviceCode));
+        }
+        if (Objects.nonNull(startTime)) {
+            query.addCriteria(Criteria.where("collectTime").gte(startTime));
+        }
+        if (Objects.nonNull(endTime)) {
+            query.addCriteria(Criteria.where("collectTime").lte(endTime));
+        }
+
 
         return mongoPageHelper.pageQuery(query, PositionData.class, collectionName, Function.identity(), pageSize, pageNum, lastId);
     }

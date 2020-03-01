@@ -78,19 +78,17 @@ public class PositionDataController implements PositionDataApi {
      * @return
      */
     @GetMapping("/page")
-    public ResponseData<PageResult<PositionData>> page(@ApiParam(value = "设备号", required = true)
-                                                       @RequestParam(value = "deviceCode") String deviceCode,
-                                                       @ApiParam(value = "采集开始时间", required = true)
-                                                       @RequestParam(value = "startTime") Date startTime,
-                                                       @ApiParam(value = "采集结束时间", required = true)
-                                                       @RequestParam(value = "endTime") Date endTime,
-                                                       @ApiParam(value = "分页参数(页数)", required = true, example = "1")
-                                                       @RequestParam(value = "pageNum") Integer pageNum,
-                                                       @ApiParam(value = "分页参数(页大小)", required = true, example = "20")
-                                                       @RequestParam(value = "pageSize") Integer pageSize,
-                                                       @ApiParam(value = "最后一条记录的id", required = false)
-                                                       @RequestParam(value = "lastId") String lastId) {
-
+    public ResponseData<PageResult<PositionData>> page(@ApiParam(value = "设备号")
+                                                       @RequestParam(value = "deviceCode",required = false) String deviceCode,
+                                                       @ApiParam(value = "采集开始时间", required = false)
+                                                       @RequestParam(value = "startTime",required = false) Date startTime,
+                                                       @ApiParam(value = "采集结束时间", required = false)
+                                                       @RequestParam(value = "endTime",required = false) Date endTime,
+                                                       @ApiParam(value = "分页参数(页数)", required = false, example = "1")
+                                                       @RequestParam(value = "pageNum",required = false) Integer pageNum,
+                                                       @ApiParam(value = "分页参数(页大小)", required = false, example = "20")
+                                                       @RequestParam(value = "pageSize",required = false) Integer pageSize,
+                                                       @RequestParam(value = "lastId",required = false) String lastId) {
         return ResponseData.ok(positionDataService.page(deviceCode, startTime, endTime, pageNum, pageSize, lastId)).extraMsg("请求成功");
     }
 

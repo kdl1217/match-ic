@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -70,6 +71,12 @@ public class MongoPageHelper {
      */
     public <T, R> PageResult<R> pageQuery(Query query, Class<T> entityClass, String collectionName, Function<T, R> mapper,
                                           Integer pageSize, Integer pageNum, String lastId) {
+        if (Objects.isNull(pageNum)) {
+            pageNum = FIRST_PAGE_NUM;
+        }
+        if (Objects.isNull(pageSize)) {
+            pageSize = 10;
+        }
         //分页逻辑
         long total = mongoTemplate.count(query, entityClass, collectionName);
         final Integer pages = (int) Math.ceil(total / (double) pageSize);
