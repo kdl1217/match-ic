@@ -2,6 +2,8 @@ package com.incarcloud.match.service.impl;
 
 import com.incarcloud.match.entity.Point;
 import com.incarcloud.match.entity.PositionData;
+import com.incarcloud.match.mongoDB.page.MongoPageHelper;
+import com.incarcloud.match.mongoDB.page.PageResult;
 import com.incarcloud.match.service.IPositionDataService;
 import com.incarcloud.match.utils.TrajectoryCompressionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -26,6 +29,9 @@ public class PositionDataServiceImpl implements IPositionDataService {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    MongoPageHelper mongoPageHelper;
 
     // MongoDB的集合名称
     private static String collectionName = "deviceData";
@@ -74,5 +80,12 @@ public class PositionDataServiceImpl implements IPositionDataService {
         double dMax = 20d;
         // 压缩经纬度
         return TrajectoryCompressionUtil.TrajectoryOptimize(points, dMax);
+    }
+
+    @Override
+    public PageResult<PositionData> page(String deviceCode, Date startTime, Date endTime, Integer pageNum, Integer pageSize, String lastId) {
+        Query query=new Query(Criteria.where("deviceId").is(deviceCode)).addCriteria(Criteria.where("collectTime").lte(endTime).gte(startTime));
+
+        return mongoPageHelper.pageQuery(query, PositionData.class, collectionName, Function.identity(), pageSize, pageNum, lastId);
     }
 }

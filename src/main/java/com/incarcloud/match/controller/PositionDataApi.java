@@ -2,6 +2,8 @@ package com.incarcloud.match.controller;
 
 import com.incarcloud.match.data.ResponseData;
 import com.incarcloud.match.entity.Point;
+import com.incarcloud.match.entity.PositionData;
+import com.incarcloud.match.mongoDB.page.PageResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -56,4 +58,24 @@ public interface PositionDataApi {
                              @RequestParam(value = "startTime") Date startTime,
                              @ApiParam(value = "采集结束时间", required = true)
                              @RequestParam(value = "endTime") Date endTime);
+
+    /**
+     * 分页查询
+     *
+     * @return
+     */
+    @ApiOperation(value = "分页查询", notes = "分页查询")
+    @ApiResponse(code = 200, message = "分页查询")
+    ResponseData<PageResult<PositionData>> page(@ApiParam(value = "设备号", required = true)
+                                                       @RequestParam(value = "deviceCode") String deviceCode,
+                                                       @ApiParam(value = "采集开始时间", required = true)
+                                                       @RequestParam(value = "startTime") Date startTime,
+                                                       @ApiParam(value = "采集结束时间", required = true)
+                                                       @RequestParam(value = "endTime") Date endTime,
+                                                       @ApiParam(value = "分页参数(页数)", required = true, example = "1")
+                                                       @RequestParam(value = "pageNum") Integer pageNum,
+                                                       @ApiParam(value = "分页参数(页大小)", required = true, example = "20")
+                                                       @RequestParam(value = "pageSize") Integer pageSize,
+                                                       @ApiParam(value = "最后一条记录的id", required = false)
+                                                       @RequestParam(value = "lastId") String lastId);
 }

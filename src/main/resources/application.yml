@@ -1,6 +1,6 @@
 # Tomcat settings
 server:
-  port: 8080
+  port: 9090
   compression:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css,application/javascript,application/result
@@ -45,8 +45,8 @@ incarcloud:
 spring:
   data:
     mongodb:
-      host: cooggo.com
-      port: 27017
+      host: ${SPRING_DATA_MONGODB_HOST:cooggo.com}
+      port: ${SPRING_DATA_MONGODB_PORT:27017}
       database: match
   thymeleaf:
     enabled: true

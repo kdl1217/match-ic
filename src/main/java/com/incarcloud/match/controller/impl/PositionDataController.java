@@ -3,6 +3,8 @@ package com.incarcloud.match.controller.impl;
 import com.incarcloud.match.controller.PositionDataApi;
 import com.incarcloud.match.data.ResponseData;
 import com.incarcloud.match.entity.Point;
+import com.incarcloud.match.entity.PositionData;
+import com.incarcloud.match.mongoDB.page.PageResult;
 import com.incarcloud.match.service.IPositionDataService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +47,11 @@ public class PositionDataController implements PositionDataApi {
      */
     @GetMapping("/getTotalMileage")
     public ResponseData<Double> getTotalMileage(@ApiParam(value = "设备号", required = true)
-                                  @RequestParam(value = "deviceCode") String deviceCode,
-                                  @ApiParam(value = "采集开始时间", required = true)
-                                  @RequestParam(value = "startTime") Date startTime,
-                                  @ApiParam(value = "采集结束时间", required = true)
-                                  @RequestParam(value = "endTime") Date endTime) {
+                                                @RequestParam(value = "deviceCode") String deviceCode,
+                                                @ApiParam(value = "采集开始时间", required = true)
+                                                @RequestParam(value = "startTime") Date startTime,
+                                                @ApiParam(value = "采集结束时间", required = true)
+                                                @RequestParam(value = "endTime") Date endTime) {
         return ResponseData.ok(positionDataService.getTotalMileage(deviceCode, startTime, endTime)).extraMsg("请求成功");
     }
 
@@ -61,11 +63,32 @@ public class PositionDataController implements PositionDataApi {
      */
     @GetMapping("/query")
     public ResponseData<List<Point>> query(@ApiParam(value = "设备号", required = true)
-                             @RequestParam(value = "deviceCode") String deviceCode,
-                             @ApiParam(value = "采集开始时间", required = true)
-                             @RequestParam(value = "startTime") Date startTime,
-                             @ApiParam(value = "采集结束时间", required = true)
-                             @RequestParam(value = "endTime") Date endTime) {
+                                           @RequestParam(value = "deviceCode") String deviceCode,
+                                           @ApiParam(value = "采集开始时间", required = true)
+                                           @RequestParam(value = "startTime") Date startTime,
+                                           @ApiParam(value = "采集结束时间", required = true)
+                                           @RequestParam(value = "endTime") Date endTime) {
         return ResponseData.ok(positionDataService.query(deviceCode, startTime, endTime)).extraMsg("请求成功");
+    }
+
+    /**
+     * 查询指定车辆指定时间段(不短于72小时)的轨迹
+     *
+     * @return
+     */
+    @GetMapping("/page")
+    public ResponseData<PageResult<PositionData>> page(@ApiParam(value = "设备号", required = true)
+                                                       @RequestParam(value = "deviceCode") String deviceCode,
+                                                       @ApiParam(value = "采集开始时间", required = true)
+                                                       @RequestParam(value = "startTime") Date startTime,
+                                                       @ApiParam(value = "采集结束时间", required = true)
+                                                       @RequestParam(value = "endTime") Date endTime,
+                                                       @ApiParam(value = "分页参数(页数)", required = true, example = "1")
+                                                       @RequestParam(value = "pageNum") Integer pageNum,
+                                                       @ApiParam(value = "分页参数(页大小)", required = true, example = "20")
+                                                       @RequestParam(value = "pageSize") Integer pageSize,
+                                                       @ApiParam(value = "最后一条记录的id", required = false)
+                                                       @RequestParam(value = "lastId") String lastId) {
+        return ResponseData.ok(positionDataService.page(deviceCode, startTime, endTime, pageNum, pageSize, lastId)).extraMsg("请求成功");
     }
 }
