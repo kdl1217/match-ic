@@ -1,2 +1,8 @@
-rootProject.name = 'match_ic'
-include 'Sys'
+pluginManagement {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://maven.aliyun.com/repository/public" }
+    }
+}
+
+rootProject.name = "match-ic"

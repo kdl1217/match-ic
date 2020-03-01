@@ -1,3 +1,4 @@
+# Tomcat settings
 server:
   port: 8080
   compression:
@@ -7,13 +8,43 @@ server:
   servlet:
     session:
       timeout: 1800
+
+# Management settings
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# Logging settings
+logging:
+  level:
+    root: WARN
+    org:
+      springframework:
+        security: INFO
+        web: ERROR
+      hibernate: INFO
+    com:
+      incarcloud: DEBUG
+  file:
+    path: ${LOGGING_FILE_PATH:./}
+    name: output.log
+    max-size: ${LOGGING_FILE_MAX_SIZE:20MB}
+
+# Incarcloud settings
+incarcloud:
+  swagger2:
+    api:
+      title: 英卡数据流竞赛在线API文档
+      description: 本文档包含该项目全部业务接口，注意保密。
+      service-url: http://localhost:8080/doc.html
+      version: 0.1.0-SNAPSHOT
+
+# Spring settings
 spring:
   data:
     mongodb:
       host: cooggo.com
       port: 27017
       database: match
-#  data.mongodb.uri: mongodb://mongoadmin:mongoadmin@cooggo.com:27017/test
-# log
-logging:
-  config: classpath:logback-test.xml
