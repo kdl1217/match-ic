@@ -45,7 +45,7 @@ incarcloud:
 spring:
   data:
     mongodb:
-      host: ${SPRING_DATA_MONGODB_HOST:cooggo.com}
+      host: ${SPRING_DATA_MONGODB_HOST:47.114.170.66}
       port: ${SPRING_DATA_MONGODB_PORT:27017}
       database: match
   thymeleaf:
