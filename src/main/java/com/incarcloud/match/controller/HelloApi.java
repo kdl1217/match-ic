@@ -1,6 +1,6 @@
 package com.incarcloud.match.controller;
 
-import com.incarcloud.common.data.ResponseData;
+import com.incarcloud.match.data.ResponseData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;

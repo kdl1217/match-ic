@@ -1,6 +1,5 @@
 package com.incarcloud.match.config;
 
-import com.incarcloud.mvc.config.AbstractSwagger2ConfigSupport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;

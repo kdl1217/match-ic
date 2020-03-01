@@ -1,7 +1,7 @@
 package com.incarcloud.match.controller.impl;
 
-import com.incarcloud.common.data.ResponseData;
 import com.incarcloud.match.controller.PositionDataApi;
+import com.incarcloud.match.data.ResponseData;
 import com.incarcloud.match.entity.Point;
 import com.incarcloud.match.service.IPositionDataService;
 import io.swagger.annotations.ApiParam;

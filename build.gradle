@@ -8,7 +8,7 @@ apply plugin: "java"
 apply plugin: "org.springframework.boot"
 
 group = "com.incarcloud"
-version = "0.4.0-SNAPSHOT"
+version = "0.5.0-SNAPSHOT"
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -16,6 +16,8 @@ targetCompatibility = JavaVersion.VERSION_1_8
 ext {
     lombokVersion = "1.18.12"
     springBootVersion = "2.2.5.RELEASE"
+    swagger2Version = "2.8.0"
+    swaggerBootstrapUiVersion = "1.9.6"
 }
 
 repositories {
@@ -35,11 +37,10 @@ dependencies {
     // common
     compile "org.apache.commons:commons-lang3:3.9"
 
-    // jar reuse
-    implementation "com.incarcloud:reuse-common:0.4.0-SNAPSHOT"
-    implementation "com.incarcloud:reuse-autoconfig-swagger2:0.4.0-SNAPSHOT"
+    compile "javax.xml.bind:jaxb-api:2.3.1"
+    compile "io.springfox:springfox-swagger2:$swagger2Version"
+    compile "com.github.xiaoymin:swagger-bootstrap-ui:$swaggerBootstrapUiVersion"
 
-    //implementation "io.swagger:swagger-annotations:1.5.24"
     implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     implementation "org.springframework.boot:spring-boot-starter-data-mongodb:$springBootVersion"
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion"
