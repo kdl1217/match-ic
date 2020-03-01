@@ -1,6 +1,6 @@
 package com.incarcloud.match.controller;
 
-import com.incarcloud.common.data.ResponseData;
+import com.incarcloud.match.data.ResponseData;
 import com.incarcloud.match.entity.Point;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

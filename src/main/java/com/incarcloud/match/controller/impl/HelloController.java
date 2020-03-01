@@ -1,7 +1,7 @@
 package com.incarcloud.match.controller.impl;
 
-import com.incarcloud.common.data.ResponseData;
 import com.incarcloud.match.controller.HelloApi;
+import com.incarcloud.match.data.ResponseData;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
