@@ -1,17 +1,20 @@
-plugins {
+/*plugins {
     id "java"
     id "io.freefair.lombok" version "4.1.6"
     id "org.springframework.boot" version "2.2.5.RELEASE"
     id "io.spring.dependency-management" version "1.0.9.RELEASE"
-}
+}*/
+apply plugin: "java"
+apply plugin: "org.springframework.boot"
 
 group = "com.incarcloud"
-version = "0.3.0-SNAPSHOT"
+version = "0.4.0-SNAPSHOT"
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 ext {
+    lombokVersion = "1.18.12"
     springBootVersion = "2.2.5.RELEASE"
 }
 
@@ -21,6 +24,15 @@ repositories {
 }
 
 dependencies {
+    // lombok
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    // lombok for test
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    // common
     compile "org.apache.commons:commons-lang3:3.9"
 
     // jar reuse
@@ -33,6 +45,18 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+}
+
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://maven.aliyun.com/repository/public" }
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.5.RELEASE"
+        classpath "org.junit.platform:junit-platform-gradle-plugin:1.2.0"
+    }
 }
 
 compileJava{
