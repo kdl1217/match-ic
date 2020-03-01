@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.incarcloud"
-version = "0.1.0-SNAPSHOT"
+version = "0.2.0-SNAPSHOT"
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -21,6 +21,8 @@ repositories {
 }
 
 dependencies {
+    compile "org.apache.commons:commons-lang3:3.9"
+
     // jar reuse
     implementation "com.incarcloud:reuse-common:0.4.0-SNAPSHOT"
     implementation "com.incarcloud:reuse-autoconfig-swagger2:0.4.0-SNAPSHOT"
