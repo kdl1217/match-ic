@@ -1,96 +1,60 @@
-//所有模块配置
-allprojects{
-    group 'com.incarcloud'
-    version '1.0-SNAPSHOT'
-    apply plugin: 'java'
-    apply plugin: 'idea'
-    apply plugin: 'org.springframework.boot'
-
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-
-    repositories {
-        mavenLocal()
-        maven { url "${mavenRepoUrl}" }
-//        mavenCentral()
-    }
-
-    compileJava{
-        options.compilerArgs << "-Xlint:unchecked"
-        options.compilerArgs << "-parameters"
-        options.encoding = "UTF-8"
-        options.compilerArgs << "-Xdiags:verbose"
-    }
-
-    compileTestJava{
-        options.compilerArgs << "-Xlint:unchecked"
-        options.compilerArgs << "-parameters"
-        options.encoding = "UTF-8"
-        options.compilerArgs << "-Xdiags:verbose"
-    }
-
-    jar {
-        enabled = true
-    }
-
-    /**
-     * SpringBoot 2开始,使用gradle bootJar进行打包,并要配置入口类
-     */
-    bootJar {
-        manifest {
-            attributes 'Start-Class': 'com.incarcloud.App'
-        }
-    }
-
-    //生成jar时打包源码
-    task sourceJar(type: Jar) {
-        from sourceSets.main.java.srcDirs
-        classifier "sources"
-    }
-}
-bootRun {
-    /**
-     * 启动时候带入jvm的参数;如下(启动jvisualvm监控)
-     * nohup gradle bootRun -PjvmArgs="-Djava.rmi.server.hostname=172.16.24.36 -Dcom.sun.management.jmxremote.port=10001 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=true" &
-     */
-    if (project.hasProperty('jvmArgs') ) {
-        jvmArgs = (project.jvmArgs.split("\\s+") as List)
-    }
-    //开启缓存行补齐
-    jvmArgs('-XX:-RestrictContended')
+plugins {
+    id "java"
+    id "io.freefair.lombok" version "4.1.6"
+    id "org.springframework.boot" version "2.2.5.RELEASE"
+    id "io.spring.dependency-management" version "1.0.9.RELEASE"
 }
 
-buildscript {
-    ext {
-        springBootVersion = '2.2.0.RELEASE'
-        mavenRepoUrl='https://maven.aliyun.com/repository/central'
-        fastjsonVersion = '1.2.62'
-        commonsBeanutilsVersion ='+'
-        commonsCodecVersion='+'
-        commonsIoVersion='+'
-        swaggerVersion='2.9.2'
-        swaggerAnnotationsVersion='1.5.21'
-        swaggerModelsVersion='1.5.21'
-        hibernateValidation='+'
-        mysqlVersion = '8.0.15'
-        mybatisVersion = '3.2.0'
-        lombokVersion = '1.18.8'
-        commonsLangVersion='3.9'
-    }
+group = "com.incarcloud"
+version = "0.1.0-SNAPSHOT"
 
-    repositories {
-        maven { url "${mavenRepoUrl}" }
-//        jcenter()
-//        mavenCentral()
-    }
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
-    dependencies {
-        //使用springboot框架
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+ext {
+    springBootVersion = "2.2.5.RELEASE"
+}
 
-    }
+repositories {
+    maven { url "https://maven.aliyun.com/repository/public" }
+    maven { url "https://repository.incarcloud.com/content/groups/public" }
 }
 
 dependencies {
-    compile project(':Sys')
+    // jar reuse
+    implementation "com.incarcloud:reuse-common:0.4.0-SNAPSHOT"
+    implementation "com.incarcloud:reuse-autoconfig-swagger2:0.4.0-SNAPSHOT"
+
+    //implementation "io.swagger:swagger-annotations:1.5.24"
+    implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb:$springBootVersion"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 }
+
+compileJava{
+    options.compilerArgs << "-Xlint:unchecked"
+    options.compilerArgs << "-parameters"
+    options.encoding = "UTF-8"
+    options.compilerArgs << "-Xdiags:verbose"
+}
+
+compileTestJava{
+    options.compilerArgs << "-Xlint:unchecked"
+    options.compilerArgs << "-parameters"
+    options.encoding = "UTF-8"
+    options.compilerArgs << "-Xdiags:verbose"
+}
+
+bootJar {
+    manifest {
+        attributes 'Start-Class': 'com.incarcloud.match.App'
+    }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.java.srcDirs
+    classifier "sources"
+}
+
+defaultTasks "assemble"
