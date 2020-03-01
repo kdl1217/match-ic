@@ -16,9 +16,9 @@ public class PositionData implements Serializable {
 
     private String id;
 
-    private String deviceCode;
+    private String deviceId;
 
-    private Long tripNo;
+    private Long tripId;
 
     private Double speed;
 

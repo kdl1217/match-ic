@@ -8,7 +8,12 @@ server:
     session:
       timeout: 1800
 spring:
-  data.mongodb.uri: mongodb://mongoadmin:mongoadmin@cooggo.com:27017/test
+  data:
+    mongodb:
+      host: cooggo.com
+      port: 27017
+      database: match
+#  data.mongodb.uri: mongodb://mongoadmin:mongoadmin@cooggo.com:27017/test
 # log
 logging:
   config: classpath:logback-test.xml
