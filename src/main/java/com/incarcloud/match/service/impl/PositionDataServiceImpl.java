@@ -89,12 +89,10 @@ public class PositionDataServiceImpl implements IPositionDataService {
         if (!StringUtils.isEmpty(deviceCode)) {
             query.addCriteria(Criteria.where("deviceId").is(deviceCode));
         }
-        if (Objects.nonNull(startTime)) {
-            query.addCriteria(Criteria.where("collectTime").gte(startTime));
+        if (Objects.nonNull(startTime) && Objects.nonNull(endTime) ) {
+            query.addCriteria(Criteria.where("collectTime").gte(startTime).lte(endTime));
         }
-        if (Objects.nonNull(endTime)) {
-            query.addCriteria(Criteria.where("collectTime").lte(endTime));
-        }
+
 
 
         return mongoPageHelper.pageQuery(query, PositionData.class, collectionName, Function.identity(), pageSize, pageNum, lastId);

@@ -95,10 +95,10 @@ public class PositionDataController implements PositionDataApi {
 
 
     @GetMapping("/totalMileage")
-    public ResponseData<DeviceInfo> totalMileage(@ApiParam(value = "设备号", required = true)
-                                                 @RequestParam(value = "deviceCode") String deviceCode,
-                                                 @ApiParam(value = "指定日期", required = true)
-                                                 @RequestParam(value = "specified") Date specified) {
+    public ResponseData<DeviceInfo> totalMileage(@ApiParam(value = "设备号", required = false)
+                                                 @RequestParam(value = "deviceCode", required = false) String deviceCode,
+                                                 @ApiParam(value = "指定日期", required = false)
+                                                 @RequestParam(value = "specified", required = false) Date specified) {
 
         return ResponseData.ok(positionDataService.totalMileage(deviceCode, specified)).extraMsg("请求成功");
     }
