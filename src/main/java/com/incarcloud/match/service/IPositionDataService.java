@@ -3,6 +3,7 @@ package com.incarcloud.match.service;
 import com.incarcloud.match.entity.DeviceInfo;
 import com.incarcloud.match.entity.Point;
 import com.incarcloud.match.entity.PositionData;
+import com.incarcloud.match.entity.TotalInfo;
 import com.incarcloud.match.mongoDB.page.PageResult;
 
 import java.util.Date;
@@ -14,6 +15,8 @@ import java.util.List;
 public interface IPositionDataService {
 
     Long getCount();
+
+    TotalInfo getTotalInfo();
 
     Double getTotalMileage(String deviceCode, Date startTime, Date endTime);
 

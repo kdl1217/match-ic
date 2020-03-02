@@ -1,8 +1,10 @@
 package com.incarcloud.match.service.impl;
 
+import com.incarcloud.match.App;
 import com.incarcloud.match.entity.DeviceInfo;
 import com.incarcloud.match.entity.Point;
 import com.incarcloud.match.entity.PositionData;
+import com.incarcloud.match.entity.TotalInfo;
 import com.incarcloud.match.mongoDB.page.MongoPageHelper;
 import com.incarcloud.match.mongoDB.page.PageResult;
 import com.incarcloud.match.service.IPositionDataService;
@@ -41,6 +43,17 @@ public class PositionDataServiceImpl implements IPositionDataService {
     public Long getCount() {
 
         return mongoTemplate.count(new Query(), collectionName);
+    }
+
+    @Override
+    public TotalInfo getTotalInfo() {
+        TotalInfo totalInfo = new TotalInfo();
+        totalInfo.setRecordTotal(getCount());
+        totalInfo.setRecordFailTotal(3L);
+        totalInfo.setRecordFullTotal(totalInfo.getRecordTotal() + totalInfo.getRecordFailTotal());
+        totalInfo.setDistanceTotal(App.CACHE_DISTANCE_TOTAL);
+        totalInfo.setDeviceTotal(App.CACHE_DEVICE_TOTAL);
+        return totalInfo;
     }
 
     @Override
