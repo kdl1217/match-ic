@@ -21,4 +21,15 @@ sh> python ./datax.py ~/datax-job/txt2mongo.json
 记录写入速度                    :          80000rec/s
 读出记录总数                    :            12000000
 读写失败总数                    :                   0
+# 1.5亿 result
+2020-03-02 10:40:56.669 [job-0] INFO  JobContainer - PerfTrace not enable!
+2020-03-02 10:40:56.669 [job-0] INFO  StandAloneJobContainerCommunicator - Total 151438501 records, 9824693860 bytes | Speed 4.85MB/s, 78465 records/s | Error 3 records, 78 bytes |  All Task WaitWriterTime 1,351.966s |  All Task WaitReaderTime 257.380s | Percentage 100.00%
+2020-03-02 10:40:56.676 [job-0] INFO  JobContainer - 
+任务启动时刻                    : 2020-03-02 10:08:46
+任务结束时刻                    : 2020-03-02 10:40:56
+任务总计耗时                    :               1930s
+任务平均流量                    :            4.85MB/s
+记录写入速度                    :          78465rec/s
+读出记录总数                    :           151438501
+读写失败总数                    :                   3
 ```
