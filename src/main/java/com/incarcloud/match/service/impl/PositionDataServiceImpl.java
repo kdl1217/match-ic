@@ -52,6 +52,7 @@ public class PositionDataServiceImpl implements IPositionDataService {
         totalInfo.setRecordFailTotal(3L);
         totalInfo.setRecordFullTotal(totalInfo.getRecordTotal() + totalInfo.getRecordFailTotal());
         totalInfo.setDistanceTotal(App.CACHE_DISTANCE_TOTAL);
+        totalInfo.setDeviceTotal(App.CACHE_DEVICE_TOTAL);
         return totalInfo;
     }
 

@@ -27,7 +27,7 @@ public class App implements CommandLineRunner {
     /**
      * 缓存总里程
      */
-    public static Long CACHE_DEVICE_TOTAL = 0L;
+    public static Long CACHE_DEVICE_TOTAL = 1003L;
 
     /**
      * 缓存总里程
