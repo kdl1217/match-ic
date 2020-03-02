@@ -1,6 +1,7 @@
 package com.incarcloud.match;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,6 +22,7 @@ import java.util.Set;
  *
  * Created by bzheng on 2019/11/28.
  */
+@Slf4j
 @SpringBootApplication(scanBasePackages = {
         "com.incarcloud.match"
 })
@@ -46,7 +48,7 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // 统计总里程
-        System.out.println("begin...");
+        log.info("begin...");
         AggregationOptions aggregationOptions = AggregationOptions.builder().allowDiskUse(true).build();
         Aggregation aggregation = Aggregation.newAggregation(
                 Aggregation.group(
@@ -68,8 +70,8 @@ public class App implements CommandLineRunner {
 
             deviceIdSet.add(tripResult.getDeviceId());
         }
-        System.out.println("distanceTotal: " + distanceTotal);
-        System.out.println("end...");
+        log.info("distanceTotal: " + distanceTotal);
+        log.info("end...");
 
         // 缓存信息
         CACHE_DISTANCE_TOTAL = distanceTotal.longValue();
