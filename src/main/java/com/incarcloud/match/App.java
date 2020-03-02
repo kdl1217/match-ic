@@ -12,7 +12,9 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.Fields;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * 启动类
@@ -59,15 +61,19 @@ public class App implements CommandLineRunner {
         Iterator<TripResult> it = aggregationResults.iterator();
         TripResult tripResult;
         Double distanceTotal = 0.0;
+        Set<String> deviceIdSet = new HashSet<>();
         while (it.hasNext()) {
             tripResult = it.next();
             distanceTotal += tripResult.getDistanceMax();
+
+            deviceIdSet.add(tripResult.getDeviceId());
         }
         System.out.println("distanceTotal: " + distanceTotal);
         System.out.println("end...");
 
         // 缓存信息
         CACHE_DISTANCE_TOTAL = distanceTotal.longValue();
+        CACHE_DEVICE_TOTAL = Long.valueOf(deviceIdSet.size());
     }
 
     @Data
