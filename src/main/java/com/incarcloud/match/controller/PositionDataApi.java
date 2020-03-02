@@ -4,6 +4,7 @@ import com.incarcloud.match.data.ResponseData;
 import com.incarcloud.match.entity.DeviceInfo;
 import com.incarcloud.match.entity.Point;
 import com.incarcloud.match.entity.PositionData;
+import com.incarcloud.match.entity.TotalInfo;
 import com.incarcloud.match.mongoDB.page.PageResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +31,14 @@ public interface PositionDataApi {
     @ApiOperation(value = "统计数据总行数", notes = "统计数据总行数")
     @ApiResponse(code = 200, message = "统计数据总行数")
     ResponseData<Long> getCount();
+
+    /**
+     * 获得统计信息
+     *
+     * @return
+     */
+    @ApiOperation(value = "获得统计信息", notes = "获得统计信息")
+    ResponseData<TotalInfo> getTotalInfo();
 
     /**
      * 查询指定车辆指定日期的行驶总里程

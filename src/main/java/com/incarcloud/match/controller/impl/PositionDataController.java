@@ -5,6 +5,7 @@ import com.incarcloud.match.data.ResponseData;
 import com.incarcloud.match.entity.DeviceInfo;
 import com.incarcloud.match.entity.Point;
 import com.incarcloud.match.entity.PositionData;
+import com.incarcloud.match.entity.TotalInfo;
 import com.incarcloud.match.mongoDB.page.PageResult;
 import com.incarcloud.match.service.IPositionDataService;
 import io.swagger.annotations.ApiParam;
@@ -40,6 +41,11 @@ public class PositionDataController implements PositionDataApi {
         return ResponseData.ok(positionDataService.getCount()).extraMsg("请求成功");
     }
 
+    @Override
+    @GetMapping("/getTotalInfo")
+    public ResponseData<TotalInfo> getTotalInfo() {
+        return ResponseData.ok(positionDataService.getTotalInfo()).extraMsg("请求成功");
+    }
 
     /**
      * 查询指定车辆指定日期的行驶总里程
