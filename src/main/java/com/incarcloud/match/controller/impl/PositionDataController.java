@@ -63,13 +63,13 @@ public class PositionDataController implements PositionDataApi {
      * @return
      */
     @GetMapping("/query")
-    public ResponseData<List<Point>> query(@ApiParam(value = "设备号", required = true)
+    public List<Point> query(@ApiParam(value = "设备号", required = true)
                                            @RequestParam(value = "deviceCode") String deviceCode,
                                            @ApiParam(value = "采集开始时间", required = true)
                                            @RequestParam(value = "startTime") Date startTime,
                                            @ApiParam(value = "采集结束时间", required = true)
                                            @RequestParam(value = "endTime") Date endTime) {
-        return ResponseData.ok(positionDataService.query(deviceCode, startTime, endTime)).extraMsg("请求成功");
+        return positionDataService.query(deviceCode, startTime, endTime);
     }
 
     /**

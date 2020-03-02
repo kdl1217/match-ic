@@ -53,7 +53,7 @@ public interface PositionDataApi {
      */
     @ApiOperation(value = "查询指定车辆指定时间段(不短于72小时)的轨迹", notes = "查询指定车辆指定时间段(不短于72小时)的轨迹")
     @ApiResponse(code = 200, message = "查询指定车辆指定时间段(不短于72小时)的轨迹")
-    ResponseData<List<Point>> query(@ApiParam(value = "设备号", required = true)
+    List<Point> query(@ApiParam(value = "设备号", required = true)
                                     @RequestParam(value = "deviceCode") String deviceCode,
                                     @ApiParam(value = "采集开始时间", required = true)
                                     @RequestParam(value = "startTime") Date startTime,

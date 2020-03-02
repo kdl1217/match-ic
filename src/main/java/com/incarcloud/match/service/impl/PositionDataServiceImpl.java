@@ -92,6 +92,28 @@ public class PositionDataServiceImpl implements IPositionDataService {
         if (Objects.nonNull(startTime) && Objects.nonNull(endTime) ) {
             query.addCriteria(Criteria.where("collectTime").gte(startTime).lte(endTime));
         }
+/*
+
+        Aggregation agg = Aggregation.newAggregation(
+                // 第一步：挑选所需的字段，类似select *，*所代表的字段内容
+                Aggregation.project("deviceId", "tripId", "distance"),
+                // 第二步：sql where 语句筛选符合条件的记录
+                Aggregation.match(
+                        Criteria.where("companyName").is(companyName).and("addedDate").gte(startTime).lte(endTime)),
+                // 第三步：分组条件，设置分组字段
+                Aggregation.group("companyName", "licensePlate")
+                        .count().as("allCount")// 增加COUNT为分组后输出的字段
+                        .last("deviceCode").as("deviceCode").last("diverName").as("diverName").last("fleet").as("fleet")
+                        .last("lineNumber").as("lineNumber").last("imgUrl").as("imgUrl").last("videoUrl").as("videoUrl")
+                        .last("ptLoc").as("ptLoc").last("locations").as("locations"), // 增加publishDate为分组后输出的字段
+                // 第四步：重新挑选字段
+                Aggregation.project("diverName", "licensePlate", "companyName", "deviceCode", "allCount", "fleet",
+                        "lineNumber", "imgUrl", "videoUrl", "ptLoc", "locations")
+        );
+        AggregationResults<HeatMap> results = mongoOperations.aggregate(agg, "Historys", HeatMap.class);
+        List<HeatMap> list = results.getMappedResults();
+*/
+
 
 
 
